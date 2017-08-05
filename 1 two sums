@@ -1,0 +1,18 @@
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> indexes;
+        for(int i = 0; i<nums.size();i++){
+            int tmp1 = nums[i];
+            int residual = target - tmp1;
+            vector<int>::iterator it = std::find(nums.begin(),nums.end(),residual);
+            int j = it-nums.begin();
+            if(it!=nums.end() && i!=j){
+                indexes.push_back(i);
+                indexes.push_back(j);
+                return indexes;
+            }
+
+        }
+    }
+};
