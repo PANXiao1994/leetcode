@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int reverse(int x) {
+
+      long long y = abs(x);
+      int m = 1;
+      int this_digit; // the last digit in the current round
+      long long z; // the storage of the reverse integer
+      bool flag = false;
+      while(y!=0){
+        this_digit = y%10;
+        y = y/10;
+        if(!flag){
+          if(!this_digit){
+            continue;
+          }
+          else{
+            z = this_digit;
+            flag = true;
+          }
+        }
+        else
+          z = z*10+this_digit;
+      }
+
+      if(z<INT_MIN || z>INT_MAX)
+        return 0;
+      else{
+        if(x > 0)
+            return z;
+        else
+            return -z;
+      }
+
+    }
+};
