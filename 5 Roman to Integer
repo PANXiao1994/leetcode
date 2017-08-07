@@ -1,0 +1,41 @@
+// 1 fast solution
+map<char,int> Roman = {{'M',1000},{'D',500},{'C',100},{'L',50},{'X',10},{'V',5},{'I',1}};
+
+class Solution {
+public:
+    int romanToInt(string s) {
+        const char *cstr = s.c_str();
+        int sum = 0;
+        int current;
+        int next = 0;
+        for(int i = s.length()-1;i>=0;i--){
+          current = Roman[cstr[i]];
+          if(current>=next)
+            sum += current;
+          else
+            sum -= current;
+          next = current;
+        }
+        return sum;
+    }
+};
+
+// 2 slow solution
+map<char,int> Roman = {{'M',1000},{'D',500},{'C',100},{'L',50},{'X',10},{'V',5},{'I',1}};
+
+class Solution {
+public:
+    int romanToInt(string s) {
+        const char *cstr = s.c_str();
+        int sum = 0;
+        int i = 0;
+        while(cstr[i]!= NULL){
+          if(Roman[cstr[i]]>Roman[cstr[i-1]])
+            sum += Roman[cstr[i]] - 2*Roman[cstr[i-1]];
+          else
+            sum += Roman[cstr[i]];
+          i++;
+        }
+        return sum;
+    }
+};
