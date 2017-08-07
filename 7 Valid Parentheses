@@ -1,0 +1,47 @@
+//slow solution 1
+map<char,char> m = {{'(',')'},{'[',']'},{'{','}'}};
+class Solution {
+public:
+    bool isValid(string s) {
+      string q = "";
+      char current;
+      for(int i =0;i<s.length();i++){
+        current = s[i];
+        if(m[q.back()]==current)
+          q.pop_back();
+        else
+          q.append(1,current);
+      }
+      if(q=="")
+        return true;
+      else
+        return false;
+    }
+};
+
+
+//slow solution 2
+map<char,char> m = {{'(',')'},{'[',']'},{'{','}'}};
+class Solution {
+public:
+    bool isValid(string s) {
+        if(s.length()%2)
+              return false;
+        stack<char> q;
+        char current;
+        for(char& current : s){
+            if(current == ')'||current == ']' || current == '}') // if the current char is ')' ']' '}'
+            {
+                if(q.empty() || m[q.top()]!=current)
+                    return false;
+                else
+                    q.pop();
+            }
+            else
+                q.push(current);
+
+        }
+        return q.empty();
+    }
+};
+// map 的使用降低了运行速度
