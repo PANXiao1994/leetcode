@@ -1,0 +1,35 @@
+//slow solution
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+      int length = nums.size();
+      vector<int>::iterator it = nums.begin();
+      while(it!=nums.end()-1){
+        if(*it == *(it+1)){
+          nums.erase(it);
+          it--;
+          length --;
+        }
+        it++;
+      }
+      return length;
+    }
+};
+//TLE solution
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+      int begin , ignore;
+        for(int i = 0;i<nums.size();i++){
+          begin = i + 1;
+          for(int j = i+1;j<nums.size();j++){
+            if(nums[j]!=nums[i]){
+              nums[begin++] = nums[j];
+            }
+            nums.resize(begin);
+          }
+
+        }
+        return begin;
+    }
+};

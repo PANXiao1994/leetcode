@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int climbStairs(int n) {
+        int a = 1;
+        int b = 1;
+        int c = 1;
+        for(int i = 1;i<n;i++){
+            c = a+b;
+            a = b;
+            b = c;
+        }
+        return c;
+    }
+};
+//fast solution??
+class Solution {
+public:
+    int climbStairs(int n) {
+        unordered_map<int,int> m;
+        if(n<=2) return n;
+        if(m.find(n)==m.end())
+          m[n] = climbStairs(n-1)+climbStairs(n-2);
+        return m[n];
+    }
+};

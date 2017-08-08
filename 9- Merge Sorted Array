@@ -1,0 +1,18 @@
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        int i = m-1; // the position in nums1
+        int j = n-1; // the position in nums2
+        int p = m+n-1;
+        int num1,num2;
+        while(j>=0 && i>=0){
+          num1 = nums1[i];
+          num2 = nums2[j];
+          nums1[p] = (num1>num2)? num1:num2;
+          i = (num1>num2)? i-1:i;
+          j = (num1>num2)? j:j-1;
+          p--;
+        }
+    }
+};
+//You may assume that nums1 has enough space (size that is greater or equal to m + n) 
