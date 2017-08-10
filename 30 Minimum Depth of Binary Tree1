@@ -7,20 +7,10 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
- //Recursive Solution 9ms
+ //BFS
 class Solution {
 public:
-    int maxDepth(TreeNode* root) {
-      if(!root)
-        return 0;
-      return max(maxDepth(root->left),maxDepth(root->right))+1;
-    }
-};
-
-//BFS Solution 6ms
-class Solution {
-public:
-    int maxDepth(TreeNode* root) {
+    int minDepth(TreeNode* root) {
       if(!root) return 0;
       queue<TreeNode*> q;
       q.push(root);
@@ -31,13 +21,13 @@ public:
         while(size--){
           TreeNode* tmp = q.front();
           q.pop();
-
-          if(tmp->left)
-            q.push(tmp->left);
-          if(tmp->right)
-            q.push(tmp->right);
+          if(!tmp->left&&!tmp->right)
+            return result;
+            if(tmp->left)
+              q.push(tmp->left);
+            if(tmp->right)
+              q.push(tmp->right);
         }
       }
-      return result;
     }
 };

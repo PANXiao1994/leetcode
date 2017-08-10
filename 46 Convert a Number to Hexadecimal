@@ -1,0 +1,14 @@
+class Solution {
+public:
+    string toHex(int num) {
+        if (num == 0) return "0";
+        long num1 = num & 0xffffffff;  // int->long ，如果是负数的话就超出了int的范围
+        string s = "";
+        while(num1){
+          char c = (num1%16<10)? num1%16+'0':num1%16-10+'a';
+          num1 = num1/16;
+          s.insert(s.begin(),c);
+        }
+        return s;
+    }
+};

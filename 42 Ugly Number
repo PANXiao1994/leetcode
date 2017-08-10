@@ -1,0 +1,20 @@
+class Solution {
+public:
+    bool isUgly(int num) {
+        if(num<=0) return false;
+        if(num==1) return true;
+        if(isDivide(num,2))
+          return isUgly(num/2);
+        else if(isDivide(num,3))
+          return isUgly(num/3);
+        else if(isDivide(num,5))
+          return isUgly(num/5);
+        else
+          return false;
+    }
+    bool isDivide(int num,int prime){
+      if(num%prime == 0)
+        return true;
+      return false;
+    }
+};

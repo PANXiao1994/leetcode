@@ -7,36 +7,26 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
- //Recursive Solution 9ms
 class Solution {
 public:
-    int maxDepth(TreeNode* root) {
-      if(!root)
-        return 0;
-      return max(maxDepth(root->left),maxDepth(root->right))+1;
-    }
-};
-
-//BFS Solution 6ms
-class Solution {
-public:
-    int maxDepth(TreeNode* root) {
-      if(!root) return 0;
+    vector<double> averageOfLevels(TreeNode* root) {
       queue<TreeNode*> q;
+      vector<double> result;
       q.push(root);
-      int result = 0;
+      double thislayer;
       while(!q.empty()){
+        thislayer=0.0;
         int size = q.size();
-        result++;
-        while(size--){
+        for(int i = 0;i<size;i++){ // !!! put nodes of same layer together
           TreeNode* tmp = q.front();
           q.pop();
-
+          thislayer += tmp->val;
           if(tmp->left)
             q.push(tmp->left);
           if(tmp->right)
             q.push(tmp->right);
-        }
+        }//!!! q.size() is the number of nodes of current layer
+        result.push_back(thislayer/size);
       }
       return result;
     }

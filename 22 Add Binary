@@ -1,0 +1,30 @@
+class Solution {
+public:
+    string addBinary(string a, string b) {
+
+        int na = a.length();
+        int nb = b.length();
+        string sum = (na>nb)? a:b;
+        int i = na -1;
+        int j = nb -1;
+        int p = (na>nb)? na-1:nb-1;
+        int carry = 0;
+        int numa,numb;
+        while(i>=0 || j>=0){
+          numa = (i<0) ? 0:a[i]-'0';
+          numb = (j<0) ? 0:b[j]-'0';
+          if(numa+numb+carry <= 1) {
+            sum[p] = numa+numb+carry+'0';
+            carry = 0;
+          }// if there isn't any carry-over
+          else{
+            sum[p] = numa+numb+carry+'0'-2;
+            carry = 1;
+          }//if there is a carry-over
+          i--; j--;p--;
+        }
+        if(carry)
+          sum.insert(sum.begin(),1,'1');
+        return sum;
+    }
+};
