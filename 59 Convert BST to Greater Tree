@@ -1,0 +1,27 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+ //do a reverse inorder traversal
+ //to traverse the nodes of the tree in descending order.
+class Solution {
+private:
+    int sum = 0;
+public:
+    TreeNode* convertBST(TreeNode* root) {
+        traversalBST(root);
+        return root;
+    }
+    void traversalBST(TreeNode* root){
+      if(!root) return;
+      traversalBST(root->right);
+      root->val += sum;
+      sum = root->val;
+      traversalBST(root->left);
+    }
+};

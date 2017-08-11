@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int findPairs(vector<int>& nums, int k) {
+        int count = 0;
+        set<int> s(begin(nums),end(nums));
+        //sort(nums.begin(),nums.end());
+        // = s.begin();
+        for (set<int>::iterator it1 = s.begin(); it1 != s.end(); it1++) {
+          int si = *(it1);
+          set<int>::iterator it = s.find(si-k);
+          if(it!=s.end()){
+            count++;
+            s.erase(it);
+          }
+          it = s.find(k-si);
+          if(it!=s.end()){
+            count++;
+            s.erase(it);
+          }
+        }
+        return count;
+    }
+};

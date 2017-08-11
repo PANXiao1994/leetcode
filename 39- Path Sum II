@@ -9,13 +9,27 @@
  */
 class Solution {
 public:
-    vector<vector<int>> pathSum(TreeNode* root, int sum) {
-        vector<vector<int>> result;
-        queue<TreeNode*> q;
-        q.push(root);
-        while(!root){
+      vector<vector<int>> pathSum(TreeNode* root, int sum) {
+          vector<int> path;
+          vector<vector<int>> paths;
+          findPath(root,sum,path,paths);
+          return paths;
+      }
 
+    void findPath(TreeNode* root, int sum,vector<int>& path,vector<vector<int>>& paths) {
+      if(!root) return;
+      path.push_back(root->val);
+      if(!root->left && !root->right){ // leave node, time to determine
+        if (sum == root->val) paths.push_back(path); //find one right path
+        else {
+          path.pop_back(); //the path is not a right one
+          return;
         }
+      }
+      findPath(root->left,sum-root->val,path,paths);
+      findPath(root->right,sum-root->val,path,paths);
+      path.pop_back();
+      // if neither child of this node can be the right path
+      //delete this node
     }
-    void findPath(TreeNode* root, int sum, vector<int>& path)
 };

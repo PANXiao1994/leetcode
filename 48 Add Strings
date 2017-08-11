@@ -1,0 +1,29 @@
+class Solution {
+public:
+    string addStrings(string num1, string num2) {
+        int nnum1 = num1.length();
+        int nnum2 = num2.length();
+        string sum = (nnum1>nnum2)? num1:num2;
+        int p = (nnum1>nnum2)? nnum1-1:nnum2-1;
+        int i = nnum1 -1;
+        int j = nnum2 -1;
+        int carry = 0;
+        int numa,numb; // the integer
+        while(i>=0 || j>=0){
+          numa = (i<0) ? 0:num1[i]-'0';
+          numb = (j<0) ? 0:num2[j]-'0';
+          if(numa+numb+carry <= 9) {
+            sum[p] = numa+numb+carry+'0';
+            carry = 0;
+          }// if there isn't any carry-over
+          else{
+            sum[p] = numa+numb+carry+'0'-10;
+            carry = 1;
+          }//if there is num1 carry-over
+          i--; j--;p--;
+        }
+        if(carry)
+          sum.insert(sum.begin(),1,'1');
+        return sum;
+    }
+};

@@ -1,0 +1,22 @@
+// Forward declaration of isBadVersion API.
+bool isBadVersion(int version);
+
+class Solution {
+public:
+    int firstBadVersion(int n) {
+        int first = 1;
+        int last = n;
+        if(isBadVersion(1)) return 1;
+        int middle;
+        while(first<last){
+          middle = first + (last-first)/2; // if use (first+last)/2,there will be overflow
+          //(left+right) > INT_MAX, causing overflow
+          if(isBadVersion(middle)){
+            last = middle;
+          }
+          else
+            first = middle + 1;
+        }
+        return last;
+    }
+};

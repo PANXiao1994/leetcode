@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+      vector<int> result;
+      set<int> s1( nums1.begin(), nums1.end());
+      nums1.assign( s1.begin(), s1.end());
+      set<int> s2( nums2.begin(), nums2.end());
+      nums2.assign( s2.begin(), s2.end());
+      if(nums1.size()<nums2.size())
+        for(int i=0;i<nums1.size();i++){
+          if(find(nums2.begin(),nums2.end(),nums1[i])!=nums2.end())
+            result.push_back(nums1[i]);
+        }
+      else
+        for(int i=0;i<nums2.size();i++){
+          if(find(nums1.begin(),nums1.end(),nums2[i])!=nums1.end())
+            result.push_back(nums2[i]);
+        }
+        return result;
+    }
+};
