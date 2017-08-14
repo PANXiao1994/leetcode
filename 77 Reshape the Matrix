@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<vector<int>> matrixReshape(vector<vector<int>>& nums, int r, int c) {
+        int row =  nums.size();
+        int column = nums[0].size();
+        if(row*column != r*c)
+          return nums;
+        else{
+          vector<vector<int>> result;
+          vector<int> res;
+          int r0=0,c0=0,r1=0,c1=0;
+          while(r1<r){
+            while(c1<c){
+              res.push_back(nums[r0][c0]);
+              if(c0==column-1){
+                r0++;
+                c0=0;
+              }
+              else
+                c0++;
+              c1++;
+            }
+            result.push_back(res);
+            res.clear();
+            r1++;
+            c1=0;
+          }
+          return result;
+        }
+    }
+};

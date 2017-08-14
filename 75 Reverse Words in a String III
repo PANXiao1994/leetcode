@@ -1,0 +1,19 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+      int len = s.length();
+      int first = 0;
+      int last = 0;
+      for(int i=0;i<=len;i++){
+        if(s[i]==' '||i==len){
+          reverse(s.begin()+first,s.begin()+last);
+          first = i+1;
+          last = first;
+        }
+        else{
+          last++;
+        }
+      }
+      return s;
+    }
+};

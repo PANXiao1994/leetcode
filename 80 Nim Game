@@ -1,0 +1,8 @@
+class Solution {
+public:
+    unordered_map<int,int> hashmap;
+    bool canWinNim(int n) {
+        return (n%4 !=0);
+    }
+
+};

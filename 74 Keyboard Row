@@ -1,0 +1,27 @@
+class Solution {
+public:
+  map<char,int> mymap;
+    vector<string> findWords(vector<string>& words) {
+      vector<string> row = {"QWERTYUIOP","ASDFGHJKL","ZXCVBNM"};
+      for(int i=0;i<3;i++){
+        for(char c:row[i]){
+          mymap.insert(pair<char,int>(c,i));
+        }
+      }
+      vector<string> results;
+        for(string each:words){
+          if(isRowWord(each))
+            results.push_back(each);
+        }
+        return results;
+    }
+    bool isRowWord(string s){
+      int tmp=mymap[toupper(s[0])];
+      for(char c:s){
+        if(mymap[toupper(c)]!=tmp)
+          return false;
+        tmp = mymap[toupper(c)];
+      }
+      return true;
+    }
+};
