@@ -1,0 +1,16 @@
+class Solution {
+public:
+    vector<int> constructRectangle(int area) {
+        vector<int> result;
+        int w = sqrt(area);
+        //int w = area/l;
+        for(;w>0;w--){ // 用l++不行，考虑初始值的特殊边界情况（如2）
+            if(area%w == 0)
+                break;
+        }
+        int l = area/w;
+        result.push_back(l);
+        result.push_back(w);
+        return result;
+    }
+};

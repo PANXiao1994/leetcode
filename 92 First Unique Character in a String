@@ -1,0 +1,11 @@
+class Solution {
+public:
+    int firstUniqChar(string s) {
+      for(int i=0;i<s.length();i++){
+        size_t found = s.find(s[i],i);
+        if (found==string::npos)
+          return i;
+      }
+      return -1;
+    }
+};

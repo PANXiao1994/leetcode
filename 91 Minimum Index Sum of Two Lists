@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<string> findRestaurant(vector<string>& list1, vector<string>& list2) {
+        vector<string> result;
+        int indexsum = list1.size()+list2.size();
+        int length = list2.size();
+        for(int i=0;i<list1.size();i++){
+          if(i>indexsum)    // 没有这句的话,下面indexsum-i会出现负数
+              break;
+          string s = list1[i];
+          int len = min(indexsum-i,length);
+          vector<string>::iterator it = find(list2.begin(),list2.begin()+len,s);
+          if(it!=list2.begin()+len){
+            result.clear();
+            result.push_back(s);
+            indexsum = i+it-list2.begin();
+          }
+          else if(s == list2[indexsum-i]){
+            result.push_back(s);
+          }
+        }
+        return result;
+    }
+};
