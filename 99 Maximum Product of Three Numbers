@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int maximumProduct(vector<int>& nums) {
+        sort(nums.begin(),nums.end(),std::greater<int>());
+        int len = nums.size();
+        if(len==3)
+          return nums[0]*nums[1]*nums[2];
+        if(nums[0]<0) //no positive
+          return nums[len-1]*nums[len-2]*nums[len-3];
+        else if(nums[1]<0) //1 positive
+          return nums[0]*nums[len-1]*nums[len-2];
+        else if(nums[2]<0) //2 positive
+          return nums[0]*nums[len-1]*nums[len-2];
+        else // 3 or more positive
+          return max(nums[0]*nums[1]*nums[2],nums[0]*nums[len-1]*nums[len-2]);
+    }
+};

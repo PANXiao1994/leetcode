@@ -1,11 +1,12 @@
 class Solution {
 public:
     int firstUniqChar(string s) {
-      for(int i=0;i<s.length();i++){
-        size_t found = s.find(s[i],i);
-        if (found==string::npos)
+      int mymap[26]={0};
+      for(int i=0;i<s.length();i++)
+        mymap[s[i]-'a']++;
+      for(int i=0;i<s.length();i++)
+        if(mymap[s[i]-'a']==1)
           return i;
-      }
       return -1;
     }
 };
