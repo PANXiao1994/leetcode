@@ -1,0 +1,40 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> findMode(TreeNode* root) {
+        vector<int> result;
+        if(!root) return result;
+        int n = 0, f = 1;
+        int last = INT_MIN;
+        traversal(root,n,f,last,result);
+        return result;
+    }
+    void traversal(TreeNode* root,int& n,int& f,int& last,vector<int>& v){
+      if(!root) return;
+      traversal(root->left,n,f,last,v);
+      int value = root->val;
+      if(value>last){
+         n = 1;
+         last = value;
+      }
+      else if(value==last){
+        n++;
+      }
+      if(f<n){
+        f = n;
+        v.clear();
+        v.push_back(last);
+      }
+      else if(f==n)
+        v.push_back(last);
+      traversal(root->right,n,f,last,v);
+    }
+};

@@ -1,0 +1,25 @@
+class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+        unordered_map<char,char> mapchars;
+        unordered_map<char,char> mapchart;
+        unordered_map<char,char>::iterator it;
+        for(int i=0;i<s.length();i++){
+          it = mapchars.find(s[i]);
+          if(it!=mapchars.end()){ // this character has already appeared before
+            if(t[i]!=mapchars[s[i]])
+              return false;
+          }
+          it = mapchart.find(t[i]);
+          if(it!=mapchart.end()){ // this character has already appeared before
+            if(s[i]!=mapchart[t[i]])
+              return false;
+          }
+          else{ // this character has never appeared before
+            mapchars.insert(make_pair(s[i],t[i]));
+            mapchart.insert(make_pair(t[i],s[i]));
+          }
+        }
+        return true;
+    }
+};

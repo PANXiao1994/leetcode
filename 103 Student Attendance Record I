@@ -1,0 +1,16 @@
+class Solution {
+public:
+    bool checkRecord(string s) {
+        int a=0,l=0;
+        for(char c:s){
+          switch (c) {
+            case 'L': l++; break;
+            case 'A': a++; l=0; break;
+            case 'P': l=0;
+          }
+          if(a>1||l>2)
+            return false;
+        }
+        return true;
+    }
+};

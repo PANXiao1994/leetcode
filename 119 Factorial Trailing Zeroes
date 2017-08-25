@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int trailingZeroes(int n) {
+        int count2 = 0,count5 = 0;
+        for(int i=1; pow(5,i)<=n;i++){
+          count5 += n/pow(5,i);
+        }
+        for(int j=1; pow(2,j)<=n;j++){
+          count2 += n/pow(2,j);
+        }
+        return min(count2,count5);
+    }
+};
+
+// faster
+class Solution {
+public:
+    int trailingZeroes(int n) {
+        int count5 = 0;
+        for(int i=1; pow(5,i)<=n;i++){
+          count5 += n/pow(5,i);
+        }
+        return count5;
+    }
+};

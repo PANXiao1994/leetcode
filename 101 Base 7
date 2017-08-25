@@ -1,0 +1,15 @@
+class Solution {
+public:
+    string convertToBase7(int num) {
+      string s = "";
+      if(num==0) return "0";
+      bool flag = (num>0);
+      int n = abs(num);
+        while(n){
+          s.insert(0,to_string(n%7));
+          n = n/7;
+        }
+        if(!flag) s.insert(0,"-");
+        return s;
+    }
+};

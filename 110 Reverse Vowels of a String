@@ -1,0 +1,33 @@
+class Solution {
+public:
+    string reverseVowels(string s) {
+        int v[52]={0};
+        v['a'-'a']=v['e'-'a']=v['i'-'a']=v['o'-'a']=v['u'-'a']=1;
+        v['A'-'A'+26]=v['E'-'A'+26]=v['I'-'A'+26]=v['O'-'A'+26]=v['U'-'A'+26]=1;
+        int a = 0, b = s.length()-1;
+        bool flaga = false, flagb = false;
+        while(a<b){
+          if(!flaga){
+            if(s[a]-'a'>= 0 && s[a]-'a'<26 && v[s[a]-'a'] || s[a]-'A'>=0 && s[a]-'A'<26 && v[s[a]-'A'+26]){
+              flaga = true;
+            }
+            else
+              a++;
+          }
+          if(!flagb){
+            if(s[b]-'a'>= 0 && s[b]-'a'<26 && v[s[b]-'a'] || s[b]-'A'>=0 && s[b]-'A'<26 && v[s[b]-'A'+26]){
+              flagb = true;
+            }
+            else
+              b--;
+          }
+          if(flaga&&flagb){
+            swap(s[a],s[b]);
+            a++;
+            b--;
+            flaga = flagb = false;
+          }
+        }
+        return s;
+    }
+};

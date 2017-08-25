@@ -1,0 +1,7 @@
+class Solution {
+public:
+    bool wordPattern(string pattern, string str) {
+        vector<int> hashp(26,0);
+        
+    }
+};

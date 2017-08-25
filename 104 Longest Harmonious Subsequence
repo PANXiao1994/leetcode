@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int findLHS(vector<int>& nums) {
+        if(nums.size()<=1) return 0;
+        sort(nums.begin(),nums.end());
+        int l = 1;
+        int k = 0;
+        int now = nums[0];
+        int result = 0;
+        for(int i=1;i<nums.size();i++){
+          if(nums[i]==now)
+            l++;
+          else if(nums[i]==now+1)
+            k++;
+          else if(nums[i]==now+2 && k>0){
+            result = max(result,l+k);
+            l = k;
+            k = 1;
+            now++;
+          }
+          else{
+            if(k>0)
+              result = max(result,l+k);
+            now = nums[i];
+            l=1;
+            k=0;
+          }
+        }
+        if(k>0)
+          return max(result,l+k);
+        else return result;
+    }
+};

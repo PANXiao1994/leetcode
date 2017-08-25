@@ -1,0 +1,24 @@
+class Solution {
+public:
+    bool repeatedSubstringPattern(string s) {
+        int len = s.length();
+        bool flag =true;
+        for(int k=2;k<=len;k++){// k: repeat times
+          if(len%k==0){
+            flag = true;
+            int m = len/k;
+            for(int i=0;i<m;i++){
+              for(int j=0;j<k;j++){
+                if(s[j*m+i]!=s[i]){
+                  flag = false;
+                  break;
+                }
+              }
+            }
+            if(flag)
+              return true;
+          }
+        }
+        return false;
+    }
+};

@@ -1,0 +1,42 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<TreeNode*> nodes;
+    int deptht;
+    bool isSubtree(TreeNode* s, TreeNode* t) {
+      deptht = getDepth(t,false);
+      getDepth(s,true);
+      for(auto nd:nodes){
+        if(isSameTree(nd,t))
+          return true;
+      }
+      return false;
+    }
+    int getDepth(TreeNode* root,bool flag){
+      if(!root) return 0;
+      int depth = max(getDepth(root->left,flag),getDepth(root->right,flag)) + 1;
+      if(flag)
+        if(depth == deptht)
+          nodes.push_back(root);
+      return depth;
+    }
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+        if(p==NULL && q==NULL)
+            return true;
+        if(!p&&q || p&&!q)
+            return false;
+        if((!p->left && !p->right) && (!q->left && !q->right)) //leaf node
+            return p->val == q->val;
+
+        else
+            return (p->val==q->val)&&isSameTree(p->left,q->left)&&isSameTree(p->right,q->right);
+    }
+};
