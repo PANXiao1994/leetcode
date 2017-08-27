@@ -1,7 +1,40 @@
 class Solution {
 public:
     bool wordPattern(string pattern, string str) {
-        vector<int> hashp(26,0);
-        
+        unordered_map<string,char> mapchar1;
+        unordered_map<char,string> mapchar2;
+        unordered_map<string,char>::iterator it1;
+        unordered_map<char,string>::iterator it2;
+        string s = "";
+        int i = 0;
+        for(int k=0;k<=str.length();k++){
+          char c = str[k];
+          if(c==32 || k ==str.length()){
+            if(s!=""){
+              it1 = mapchar1.find(s);
+              if(it1!=mapchar1.end()){ // this character has already appeared before
+                if(pattern[i]!=mapchar1[s])
+                  return false;
+              }
+              it2 = mapchar2.find(pattern[i]);
+              if(it2!=mapchar2.end()){ // this character has already appeared before
+                if(s!=mapchar2[pattern[i]])
+                  return false;
+              }
+              else{
+                mapchar1.insert(make_pair(s,pattern[i]));
+                mapchar2.insert(make_pair(pattern[i],s));
+              }
+              i++;
+              s = "";
+            }
+          }
+          else{
+            s.push_back(c);
+          }
+        }
+        if(i!=pattern.length())
+          return false;
+        return true;
     }
 };
