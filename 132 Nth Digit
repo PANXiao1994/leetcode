@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int findNthDigit(int n) {
+      int sum = n;
+      long tmp; // don't use int
+        for(int curr=1;;curr++){ //curr: the current digit
+          tmp = curr*(pow(10,curr)-pow(10,curr-1));
+          if(sum > tmp)
+            sum -= tmp;
+          else{
+            long num = (sum-1)/curr + pow(10,curr-1);
+            int k = sum%curr;
+            k = (k==0)? 0:curr-k;
+            while(k--)
+                num = num/10;
+            return num%10;
+          }
+        }
+    }
+};

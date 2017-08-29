@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        if(k==0) return false;
+        unordered_map<int,int> mymap;
+        unordered_map<int,int>::iterator it;
+        int t = k+1<nums.size()? k+1:nums.size();
+        for(int i=0;i<t;i++){
+          it = mymap.find(nums[i]);
+          if(it!=mymap.end()){
+            mymap[nums[i]]++;
+            if(mymap[nums[i]]>1)
+              return true;
+          }
+          else
+            mymap.insert(make_pair(nums[i],1));
+        }
+        if(k+1<nums.size())
+          for(int j=k+1;j<nums.size();j++){
+            mymap[nums[j-k-1]]--;
+            it = mymap.find(nums[j]);
+            if(it!=mymap.end()){
+              mymap[nums[j]]++;
+              if(mymap[nums[j]]>1)
+                return true;
+            }
+            else
+              mymap.insert(make_pair(nums[j],1));
+          }
+        return false;
+    }
+};

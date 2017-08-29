@@ -1,0 +1,14 @@
+class Solution {
+public:
+    bool judgeSquareSum(int c) {
+        int tmp1 = sqrt(c/2);
+        int tmp2;
+        while(tmp1>=0){
+          tmp2 = sqrt(c-tmp1*tmp1);
+          if(tmp1*tmp1 + tmp2*tmp2 == c)
+            return true;
+          tmp1--;
+        }
+        return false;
+    }
+};
