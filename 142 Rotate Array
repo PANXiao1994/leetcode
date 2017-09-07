@@ -1,0 +1,41 @@
+// solution 1
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        int len = nums.size();
+        k = k%len;
+        if(k==0) return;
+        for(int i=0;i<(len-k)/2;i++)
+          swap(nums[i],nums[len-k-i-1]);
+        for(int j=len-k;j<len-k/2;j++)
+          swap(nums[j],nums[2*len-k-j-1]);
+        for(int m=0;m<len/2;m++)
+          swap(nums[m],nums[len-m-1]);
+    }
+};
+
+//solution 2
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+      int len = nums.size();
+      k = k%len;
+      if(k==0) return;
+      int l = 0;
+      int count = 0;
+      while (count<len){
+        int tmp1 = nums[l],tmp2;
+        bool flag = true;
+        int i = l;
+        while(i!=l || flag){
+          flag = false;
+          tmp2 = nums[(i+k)%len];
+          nums[(i+k)%len] = tmp1;
+          tmp1 = tmp2;
+          i = (i+k)%len;
+          count++;
+        }
+        l++;
+      }
+    }
+};

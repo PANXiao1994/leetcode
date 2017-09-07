@@ -6,7 +6,8 @@ public:
         int radius = 0;
         int k=0; //heaters
         for(int i=0;i<houses.size();i++){
-          while(k<heaters.size()-1 && abs(heaters[k+1]-houses[i])<abs(heaters[k]-houses[i]))
+          while(k<heaters.size()-1 && abs(heaters[k+1]-houses[i])<=abs(heaters[k]-houses[i]))
+          // 必须是<= 不能是 <
             k++;
           radius = max(radius,abs(heaters[k]-houses[i]));
         }

@@ -1,0 +1,47 @@
+class MinStack {
+private:
+  stack<int> s;
+  int minnum = INT_MAX;
+  priority_queue<int,int> q;
+public:
+    /** initialize your data structure here. */
+    MinStack() {
+
+    }
+
+    void push(int x) {
+       s.push(x);
+       q.push(x);
+      minnum = min(x,minnum);
+    }
+
+    void pop() {
+       int a = s.top();
+       if(q.front()==a){
+         q.pop();
+         minnum = q.front;
+       }
+       else{
+         priority_queue<int>::iterator it;
+         it = find(q,x);
+       }
+        s.pop();
+    }
+
+    int top() {
+        return s.top();
+    }
+
+    int getMin() {
+        return minnum;
+    }
+};
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack obj = new MinStack();
+ * obj.push(x);
+ * obj.pop();
+ * int param_3 = obj.top();
+ * int param_4 = obj.getMin();
+ */

@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+        vector<int> result;
+        int hashp[26]={0};
+        int hashs[26]=hashp;
+        //record the occurence of each character in p
+        int n = p.size();
+        for(int i=0;i<n;i++)
+          hashp[p[i]-'a']++;
+        for(int j=0;j<n;j++){
+          hashs[s[i]-'a']++;
+        }
+        if(hashp==hashs)
+            result.push_back(0);
+        for(int k=n;k<s.size();k++){
+          hashs[s[k]-'a']++;
+          hashs[s[k-n]-'a']--;
+          if(hashs==hashp)
+            result.push_back(k-n+1);
+        }
+        return result;
+    }
+};
