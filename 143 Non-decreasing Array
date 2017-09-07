@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool checkPossibility(vector<int>& nums) {
+        for(int i=0;i<nums.size()-1;i++){
+          if(nums[i+1]<nums[i]){
+            int a = nums[i];
+            int b = nums[i+1];
+            nums[i+1] = a;
+            if(is_sorted(nums.begin(),nums.end())) return true;
+            else{
+              nums[i]=nums[i+1]=b;
+              if(is_sorted(nums.begin(),nums.end())) return true;
+              else return false;
+            }
+            nums[i]=a;
+            nums[i+1]=b;
+          }
+        }
+        return true;
+    }
+};
+
+//idea: if nums[i+1]<nums[i],set nums[i]=nums[i+1] or nums[i+1]=nums[i],see whether the array is in order

@@ -2,20 +2,32 @@ class Solution {
 public:
     int findPairs(vector<int>& nums, int k) {
         int count = 0;
-        set<int> s(begin(nums),end(nums));
-        //sort(nums.begin(),nums.end());
-        // = s.begin();
-        for (set<int>::iterator it1 = s.begin(); it1 != s.end(); it1++) {
-          int si = *(it1);
-          set<int>::iterator it = s.find(si-k);
-          if(it!=s.end()){
-            count++;
-            s.erase(it);
+        if(k<0)  return 0;
+        if(k==0){
+          sort(nums.begin(),nums.end());
+          int oldlen = nums.size();
+          int curr = INT_MAX;
+          for(int i = 0;i<oldlen-1;i++){
+            if(nums[i+1]!=curr && nums[i]==nums[i+1]){
+              count++;
+              curr = nums[i+1];
+            }
           }
-          it = s.find(k-si);
-          if(it!=s.end()){
-            count++;
-            s.erase(it);
+        }
+        else{
+          set<int> s( nums.begin(), nums.end() );
+          nums.assign( s.begin(), s.end() );
+          int newlen = nums.size();
+          for(int i=0,j=1;i<newlen && j<newlen;){
+            int diff = nums[j]-nums[i];
+            if(diff==k){
+              count ++;
+              j++;
+            }
+            else if(diff>k || j==newlen-1)
+              i++;
+            else if(diff<k || i==newlen-1)
+              j++;
           }
         }
         return count;
