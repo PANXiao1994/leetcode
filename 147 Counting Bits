@@ -1,0 +1,42 @@
+//slow
+class Solution {
+public:
+    vector<int> countBits(int num) {
+      vector<int> v;
+      v.push_back(0);
+      if(num == 0)
+        return v;
+      v.push_back(1);
+      if(num == 1)
+        return v;
+      int digit = 2;
+      for(int k=2;k<=num;k++){
+        if(pow(2,digit)<=k)
+          digit++;
+        v.push_back(v[k-pow(2,digit-1)]+1);
+      }
+      return v;
+    }
+};
+
+
+//fast
+class Solution {
+public:
+    vector<int> countBits(int num) {
+      vector<int> v;
+      v.push_back(0);
+      if(num == 0)
+        return v;
+      v.push_back(1);
+      if(num == 1)
+        return v;
+      int fold = 2;
+      for(int k=2;k<=num;k++){
+        v.push_back(v[k-fold]+1);
+        if(fold*2-1 == k)
+          fold *= 2;
+      }
+      return v;
+    }
+};
