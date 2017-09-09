@@ -1,0 +1,21 @@
+bool Comp(const pair<int, int>& firstElem, const pair<int, int>& secondElem) {
+      return firstElem.first > secondElem.first || (firstElem.first == secondElem.first && firstElem.second < secondElem.second);
+}
+//一开始排序的判断写的不对: return firstElem.first >= secondElem.first
+//造成了Runtime error
+class Solution {
+public:
+    vector<pair<int, int>> reconstructQueue(vector<pair<int, int>>& people) {
+        vector<pair<int, int>> result;
+        if(people.empty())  return result;
+        sort(people.begin(), people.end(),Comp);
+        result.push_back(people[0]);
+        for(int i=1;i<people.size();i++){
+          pair<int, int> person = people[i];
+          result.insert(result.begin()+person.second,person);
+        }
+        return result;
+    }
+
+};
+//idea: sort-insert

@@ -1,0 +1,18 @@
+class Solution {
+private:
+  int count = 0;
+public:
+    int countSubstrings(string s) {
+        for(int i=0;i<s.length();i++){
+          countpalindromic(s,i,i);
+          countpalindromic(s,i,i+1);
+        }
+        return count;
+    }
+    void countpalindromic(string &s, int left,int right){
+      while(s[left]==s[right] && left>=0 && right<s.length()){
+        count++;left--;right++;
+      }
+    }
+};
+//idea: extends from the center

@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int nthUglyNumber(int n) {
+      queue<int> q;
+      vector<int> visited;
+      vector<int>::iterator it2,it3,it5;
+      q.push(1); //1 is the first ugly number
+      while(n--){
+        int tmp = q.front();
+        q.pop();
+        visited.push_back(tmp);
+        it2 = find(visited.begin(),visited.end(),tmp*2);
+        it3 = find(visited.begin(),visited.end(),tmp*3);
+        it5 = find(visited.begin(),visited.end(),tmp*5);
+
+        if(it2!=visited.end())
+          q.push(tmp*2);
+        if(it3!=visited.end())
+          q.push(tmp*3);
+        if(it5!=visited.end())
+          q.push(tmp*5);
+      }
+      return q.front();
+    }
+};
