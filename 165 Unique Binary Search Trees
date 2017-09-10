@@ -1,0 +1,27 @@
+class Solution {
+private:
+  unordered_map<int,int> mymap;
+public:
+    int numTrees(int n) {
+        if(n<=1) return 1;
+        if(n==2) return n;
+        int val = 0;
+        for(int i=0;i<n;i++){
+          int thisval = 1;
+            if(mymap.find(i)!=mymap.end())
+              thisval *= mymap[i];
+            else{
+                mymap[i] = numTrees(i);
+                thisval *= mymap[i];
+            }
+            if(mymap.find(n-i-1)!=mymap.end())
+              thisval *= mymap[n-i-1];
+            else{
+                mymap[n-i-1] = numTrees(n-i-1);
+                thisval *= mymap[n-i-1];
+            }
+            val += thisval;
+        }
+        return val;
+    }
+};
