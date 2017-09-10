@@ -1,0 +1,30 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<string>> printTree(TreeNode* root) {
+        int hight = getHight(root);
+        int col = pow(2,hight)-1;
+        vector<vector<string>> result(hight, vector<string>(col, ""));
+        print(0,col,root,0,result);
+        return result;
+    }
+    void print(int l,int r,TreeNode* t,int i,vector<vector<string>>& v){
+      if(!t)  return;
+      v[i][(l+r)/2] = to_string(t->val);
+      print(l,(l+r)/2,t->left,i+1,v);
+      print((l+r+1)/2,r,t->right,i+1,v);
+    }
+
+    int getHight(TreeNode* root){
+      if(!root) return 0;
+      return max(getHight(root->left),getHight(root->right))+1;
+    }
+};
