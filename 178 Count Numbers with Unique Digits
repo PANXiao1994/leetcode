@@ -1,0 +1,24 @@
+class Solution {
+private:
+  int count = 0;
+public:
+    int countNumbersWithUniqueDigits(int n) {
+        vector<bool> v(10);
+        getCount(v,1,n,true);
+        return count;
+    }
+    void getCount(vector<bool> v, int k, int n, bool high){
+      if(k>n){
+        count++; return;
+      }
+
+      for(int i=0;i<=9;i++){
+        if(!v[i] || (i==0 && high)){
+          if(i!=0)  high = false;
+          v[i]=true;
+          getCount(v,k+1,n,high);
+          v[i]=false;
+        }
+      }
+    }
+};

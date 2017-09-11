@@ -1,0 +1,19 @@
+//idea: bucket sort
+class Solution {
+public:
+    string frequencySort(string s) {
+        string result = "";
+        unordered_map<char,int> freq;
+        vector<string> bucket(s.length()+1,"");
+        for(char c:s)
+          freq[c]++;
+        for(auto item:freq){
+          bucket[item.second].append(item.second,item.first);
+        }
+        for(int i = s.length();i>=0;i--){
+          if(!bucket[i].empty())
+            result += bucket[i];
+        }
+        return result;
+    }
+};

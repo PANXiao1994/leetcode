@@ -1,0 +1,17 @@
+class Solution {
+public:
+    vector<vector<int>> combinationSum3(int k, int n) {
+      vector<vector<int>> result;
+      vector<int> tmp;
+      backtracking(result,tmp,k,n,1);
+      return result;
+    }
+    void backtracking(vector<vector<int>>& r, vector<int>& t, int k, int n, int start){
+      if(!(k||n)) { r.push_back(t); return;}
+      for(int i = start;i<=9;i++){
+        t.push_back(i);
+        backtracking(r,t,k-1,n-i,i+1);
+        t.erase(t.end()-1);
+      }
+    }
+};

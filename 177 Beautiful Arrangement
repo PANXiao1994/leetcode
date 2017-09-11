@@ -1,0 +1,25 @@
+class Solution {
+private:
+  int count = 0;
+public:
+    int countArrangement(int N) {
+      vector<bool> v(N,false);
+      getArrangement(v,N,1);
+      return count;
+    }
+    void getArrangement(vector<bool>& v, int n, int k){
+      if(k>n){
+          count++;
+          return;
+      }
+      for(int i=1;i<=n;i++){
+        if(!v[i]){ // if i is not visited
+          if(i%k == 0 || k%i == 0){ // meet the condition
+            v[i] = true;
+            getArrangement(v,n,k+1);
+            v[i] = false; // IMPORTANT
+          }
+        }
+      }
+    }
+};

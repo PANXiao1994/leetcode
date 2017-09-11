@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<int> constructArray(int n, int k) {
+        vector<int> result;
+        int i = 1;
+        int j = n;
+        while(i<=j){
+          if(k>=2){
+            result.push_back(k%2? i++:j--);
+            k--;
+          }
+          else{
+            result.push_back(k%2? i++:j--);
+          }
+        }
+        return result;
+    }
+};
+// "++"运算符放在变量后面，表示先做运算，最后自增
+//放在变量前面，表示先自增，后做运算
+//参考：https://stackoverflow.com/questions/18768840/increment-order-in-a-while-loop

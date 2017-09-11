@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int arrayNesting(vector<int>& nums) {
+        vector<bool> hash(nums.size(),false);
+        int maxlength = INT_MIN;
+        for(int i=0;i<nums.size();i++){
+          if(hash[i]) continue;
+          int index = i;
+          int thislength = 0;
+          while(!hash[index]){//if the element hasn't been visited before
+            hash[index] = true;
+            index = nums[index];
+            thislength++;
+          }
+          maxlength = max(maxlength,thislength);
+        }
+        return maxlength;
+    }
+};
