@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<string> restoreIpAddresses(string s) {
+        vector<string> result;
+        string t;
+        backtracking(s,t,result,4);
+        return result;
+    }
+    void backtracking(string& s, string& str, vector<string>& r, int n){
+        if(s.empty() && n>0)    return;
+        if(n==0){
+            str.pop_back();
+            if(s.empty() && find(r.begin(),r.end(),str)==r.end())
+                r.push_back(str);
+            return;
+        }
+        for(int i=1;i<4;i++){
+          string tmp = s.substr(0,i);
+          if(atoi(tmp.c_str())>=256)    continue;
+          if(tmp.length()>1 && tmp[0]=='0')   continue;
+          string strtmp = str;
+          str.append(tmp+'.');
+          s.erase(0,i);
+          backtracking(s,str,r,n-1);
+          s.insert(0,tmp);
+          str = strtmp;
+        }
+    }
+};

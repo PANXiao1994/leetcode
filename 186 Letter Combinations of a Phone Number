@@ -1,0 +1,24 @@
+class Solution {
+private:
+  unordered_map<char,vector<char>> mymap = {{'2',{'a','b','c'}},{'3',{'d','e','f'}},
+{'4',{'g','h','i'}},{'5',{'j','k','l'}},{'6',{'m','n','o'}},{'7',{'p','q','r','s'}},
+{'8',{'t','u','v'}},{'9',{'w','x','y','z'}}};
+public:
+    vector<string> letterCombinations(string digits) {
+        vector<string> result;
+        if(digits.empty())  return result;
+        string tmp="";
+        backtracking(tmp,result,digits,0);
+        return result;
+    }
+    void backtracking(string& s, vector<string>& r, string digits, int index){
+      if(index == digits.length()){
+        r.push_back(s); return;
+      }
+      for(char c:mymap[digits[index]]){
+        s += c;
+        backtracking(s,r,digits,index+1);
+        s.pop_back();
+      }
+    }
+};

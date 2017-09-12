@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        vector<string> result;
+        string tmp;
+        backtracking(0,0,n,result,tmp);
+        return result;
+    }
+    void backtracking(int left, int right,int n, vector<string>& r, string& s){
+      if(left==n && right==n){ r.push_back(s); return;}
+      if(left<n){
+        s += '(';
+        backtracking(left+1,right,n,r,s);
+        s.pop_back();
+      }
+      if(right<left){
+        s += ')';
+        backtracking(left,right+1,n,r,s);
+        s.pop_back();
+      }
+    }
+};

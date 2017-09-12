@@ -1,0 +1,46 @@
+// solution 1
+class Solution {
+public:
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+      vector<vector<int>> result;
+      sort(candidates.begin(),candidates.end());
+      vector<int> v;
+      backtracking(candidates,v,result,target,0);
+      return result;
+    }
+    void backtracking(vector<int>& nums, vector<int>& v, vector<vector<int>>& r, int target,int start){
+      if(target == 0){
+        if(find(r.begin(),r.end(),v)==r.end())
+          r.push_back(v);
+        return;
+      }
+      if(target<0)  return;
+      for(int i=start;i<nums.size();i++){
+        v.push_back(nums[i]);
+        backtracking(nums,v,r,target-nums[i],i+1);
+        v.pop_back();
+      }
+    }
+};
+
+//solution 2
+class Solution {
+public:
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+      vector<vector<int>> result;
+      sort(candidates.begin(),candidates.end());
+      vector<int> v;
+      backtracking(candidates,v,result,target,0);
+      return result;
+    }
+    void backtracking(vector<int>& nums, vector<int>& v, vector<vector<int>>& r, int target,int start){
+      if(target == 0){  r.push_back(v);   return;}
+      if(target<0)  return;
+      for(int i=start;i<nums.size();i++){
+        if(i>start && nums[i]==nums[i-1]) continue; // !!! if 里 i>0 就会漏掉[1,1,6]这种答案
+        v.push_back(nums[i]);
+        backtracking(nums,v,r,target-nums[i],i+1);
+        v.pop_back();
+      }
+    }
+};

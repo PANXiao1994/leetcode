@@ -1,3 +1,4 @@
+//slow method with backtracking
 class Solution {
 private:
   int count = 0;
@@ -22,3 +23,5 @@ public:
       }
     }
 };
+
+//fast method

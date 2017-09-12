@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<vector<int>> combine(int n, int k) {
+        vector<vector<int>> result;
+        vector<bool> hash(n);
+        vector<int> tmp;
+        backtracking(k,1,n,result,tmp,hash);
+        return result;
+    }
+    void backtracking(int remain,int start, int n,vector<vector<int>>& r,vector<int>& v, vector<bool>& hash){
+      if(remain == 0){
+        r.push_back(v); return;
+      }
+      for(int i=start;i<=n;i++){
+        if(!hash[i]){
+          v.push_back(i);
+          hash[i] = true;
+          backtracking(remain-1,i+1,n,r,v,hash);
+          hash[i] = false;
+          v.pop_back();
+        }
+      }
+    }
+};
