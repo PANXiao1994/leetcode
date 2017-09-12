@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<vector<string>> partition(string s) {
+        vector<vector<string>> result;
+        vector<string> t;
+        backtracking(s,t,result,0);
+        return result;
+    }
+    void backtracking(string &s, vector<string>& substrs, vector<vector<string>>& r, int left){
+      if(left==s.length()){
+        r.push_back(substrs); return;
+      }
+      for(int i=left;i<s.length();i++){
+        string tmp = s.substr(left,i-left+1);
+        if(!isPalindrome(s,left,i))  continue;
+        substrs.push_back(tmp);
+        backtracking(s,substrs,r,i+1);
+        substrs.pop_back();
+      }
+    }
+    bool isPalindrome(string &s, int left, int right){
+      while(s[left]==s[right]){
+        left++; right--;
+      }
+      return left>=right;
+    }
+};
