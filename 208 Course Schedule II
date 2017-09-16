@@ -1,0 +1,40 @@
+class Solution {
+public:
+    vector<int> findOrder(int numCourses, vector<pair<int, int>>& prerequisites) {
+        vector<int> result;
+        if(numCourses==0) return result;
+        vector<int> record(numCourses,0);//record the state of each node
+        vector<vector<int>> adj(numCourses);//tranfer the edge information to adjacent information
+        vector<bool> hash(prerequisites.size(),false);//record whether the edge is used or not
+        for(int i=0;i<prerequisites.size();i++){
+          int pre = prerequisites[i].second;
+          int curr = prerequisites[i].first;
+          adj[pre].push_back(curr);
+        }
+        for(int i=0;i<numCourses;i++){
+          if(notCircle(result,adj,record,i)==false) return {};
+        }
+        reverse(result.begin(),result.end());
+        return result;
+    }
+
+    bool notCircle(vector<int>& res, vector<vector<int>>& adj, vector<int>& record, int current){
+
+      if(record[current]==-1) return false;
+      if(record[current]==1)  return true;
+      record[current] = -1;
+
+      while(!adj[current].empty()){
+        bool flag = notCircle(res,adj,record,adj[current].back());
+        adj[current].pop_back();
+        if(flag == false) return false;
+      }
+      record[current] = 1;
+      res.push_back(current);
+      return true;
+    }
+};
+
+// -1: been visited but not been finished
+// 1: been visited and has been finished
+// 0: not been visited

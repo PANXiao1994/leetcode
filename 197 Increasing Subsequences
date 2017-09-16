@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<vector<int>> findSubsequences(vector<int>& nums) {
+        vector<vector<int>> result;
+        vector<int> t;
+        DFS(result,t,nums,0);
+        return result;
+    }
+    void DFS(vector<vector<int>>& r, vector<int>& tmp, vector<int>& nums, int start){
+      if(tmp.size()>1){ r.push_back(tmp);}
+      vector<int> used;//不加used的vactor来记录的话，会出现重复
+      for(int i=start;i<nums.size();i++){
+        if(!tmp.empty() && nums[i]<tmp.back()) continue;
+        //if(i>start && nums[i]==nums[i-1])   continue;//这句不需要，因为不是连着相等的情况就不能检测出
+        if(find(used.begin(),used.end(),nums[i]) != used.end())   continue;
+        used.push_back(nums[i]);
+        tmp.push_back(nums[i]);
+        DFS(r,tmp,nums,i+1);
+        tmp.pop_back();
+      }
+    }
+};
+
+//[1，2，1，1]
+//不加used：[[1,2],[1,1],[1,1,1],[1,1,1,1],[1,1],[1,1,1]]
+//加used：[[1,2],[1,1],[1,1,1],[1,1,1,1]]

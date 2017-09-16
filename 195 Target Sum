@@ -1,0 +1,19 @@
+//very slow solution!!
+class Solution {
+public:
+    int findTargetSumWays(vector<int>& nums, int S) {
+      int count = 0;
+      DFS(true,0,S,nums,count);
+      DFS(false,0,S,nums,count);
+      return count;
+    }
+    void DFS(bool neg, int index, int sum, vector<int>& nums, int& cnt){
+      if(index==nums.size()){
+        if(sum == 0 && neg)  cnt++;
+        return;
+      }
+      sum -= neg? -nums[index]:nums[index];
+      DFS(true,index+1,sum,nums,cnt);
+      DFS(false,index+1,sum,nums,cnt);
+    }
+};

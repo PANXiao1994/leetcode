@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool canFinish(int numCourses, vector<pair<int, int>>& prerequisites) {
+        if(prerequisites.empty()) return true;
+        vector<int> record(numCourses,0);//record the state of each node
+        vector<vector<int>> adj(numCourses);//tranfer the edge information to adjacent information
+        vector<bool> hash(prerequisites.size(),false);//record whether the edge is used or not
+        for(int i=0;i<prerequisites.size();i++){
+          int pre = prerequisites[i].second;
+          int curr = prerequisites[i].first;
+          adj[pre].push_back(curr);
+        }
+
+        for(int i=0;i<numCourses;i++){
+          if(isCircle(adj,record,i)==false) return false;
+        }
+        return true;
+    }
+
+    bool isCircle(vector<vector<int>>& adj, vector<int>& record, int current){
+      if(record[current]==-1) return false;
+      if(record[current]==1)  return true;
+      record[current] = -1;//之前放在while循环里面，错。只是这题不影响结果
+      while(!adj[current].empty()){
+        bool flag = isCircle(adj,record,adj[current].back());
+        adj[current].pop_back();
+        if(flag == false) return false;
+        else continue;
+      }
+      record[current] = 1;//之前放在while循环里面，错。只是这题不影响结果
+      return true;
+    }
+};

@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int findCircleNum(vector<vector<int>>& M) {
+        int n = M.size();
+        int count = 0;
+        vector<int> hash(n,0);
+        for(int i = 0;i<n;i++){
+            if(hash[i]==0){
+                DFS(hash,M,n,i);
+                count ++;
+            }
+        }
+        return count;
+    }
+    void DFS(vector<int>& hash, vector<vector<int>>& M, int n, int i){
+        hash[i] = 1;
+        for(int j=0;j<n;j++){
+          if(i==j)  continue;
+          if(M[i][j] && hash[j]==0)
+            DFS(hash,M,n,j);
+        }
+    }
+};

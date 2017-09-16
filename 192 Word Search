@@ -3,7 +3,6 @@ public:
     bool exist(vector<vector<char>>& board, string word) {
         int row = board.size();
         int col = board[0].size();
-        bool flag = false;
         vector<vector<bool>> hash(row,vector<bool>(col,false));
         for(int i=0;i<row;i++){
           for(int j=0;j<col;j++)

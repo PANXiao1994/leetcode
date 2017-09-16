@@ -1,0 +1,22 @@
+//one slow solution with DFS
+class Solution {
+public:
+    bool makesquare(vector<int>& nums) {
+        int sum = 0;
+        for(int n:nums) sum += n;
+        if(sum%4 || nums.size()<4) return false;
+        int idx = 0;
+        vector<int> s(4,0);
+        return DFS(nums,sum/4,s,0);
+    }
+    bool DFS(vector<int>& nums, int ed, vector<int>& s, int index){
+      if(index==nums.size()) return s[0]==ed && s[1]==ed && s[2]==ed;
+      for(int i=0;i<4;i++){
+        if(s[i]+nums[index] > ed)    continue;
+        s[i] += nums[index];
+        if(DFS(nums,ed,s,index+1))  return true;
+        s[i] -= nums[index];
+      }
+      return false;
+    }
+};

@@ -1,0 +1,41 @@
+class Solution {
+public:
+    string decodeString(string s) {
+        string res = "";
+        string num = "";
+        string tmp = "";
+        string sub = "";
+        int n = 0;
+        stack<string> stk;
+        stack<int> cnt;
+        for(char c:s){
+          if(c==']'){
+            sub = "";
+            sub += stk.top();
+            int m = cnt.top();
+            cnt.pop();
+            stk.pop();
+            while(m--)  sub += tmp;
+            tmp = sub;
+            if(stk.empty())   {res += sub; tmp = "";}
+          }
+          else if(isdigit(c))
+            num += c;
+          else if(c=='['){
+            n = atoi(num.c_str());
+            stk.push(tmp);
+            cnt.push(n);
+            tmp = "";
+            num = "";
+          }
+          else if(isalpha(c)){
+            if(stk.empty()){
+                res += c;
+            }
+            else
+                tmp += c;
+          }
+        }
+        return res;
+    }
+};
