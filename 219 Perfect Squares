@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int numSquares(int n) {
+        if(n==0)    return 0;
+        vector<int> mymap({0});
+        while(mymap.size()<=n){
+          int m = mymap.size();
+          int count = INT_MAX;
+          for(int i=1;i<=sqrt(m);i++)
+              count = min(count,mymap[m-i*i]+1);
+          mymap.push_back(count);
+        }
+       return mymap[n];
+    }
+};

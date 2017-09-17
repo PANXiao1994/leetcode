@@ -1,0 +1,59 @@
+class Solution {
+public:
+    vector<pair<int, int>> pacificAtlantic(vector<vector<int>>& matrix) {
+        vector<pair<int, int>> res;
+        if(matrix.empty())  return res;
+        vector<vector<int>> strs = (matrix.size(),vector<int>(matrix[0].size(),0));
+        DFS(matrix,strs,0,0,res);
+        return res;
+    }
+    int DFS(vector<vector<int>>& matrix, vector<vector<int>>& tmp, int i, int j, vector<pair<int, int>>& res){
+      if(tmp[i][j]>0)  return tmp[i][j];
+      int s = 0;
+      if(i==0 || j==0) s += 2;
+      if(i==matrix.size()-1||j==matrix[0].size()-1) s += 1;
+      if(s==3){
+          res.push_back(make_pair(i,j));
+          tmp[i][j]=s;
+          return s;
+        }
+      int up = 0,down = 0,left = 0,right = 0;
+      if(matrix[i][j]>=matrix[i-1][j]){
+        up = DFS(matrix,tmp,i-1,j);
+        if(up==3) {
+          res.push_back(make_pair(i,j));
+          tmp[i][j]=up;
+          return up;
+        }
+      }
+      if(matrix[i][j]>=matrix[i][j-1]){
+        left = DFS(matrix,tmp,i,j-1);
+        if(left==3) {
+          res.push_back(make_pair(i,j));
+          tmp[i][j]=left;
+          return left;
+        }
+      }
+      if(matrix[i][j]>=matrix[i+1][j]){
+        down = DFS(matrix,tmp,i+1,j);
+        if(down==3) {
+          res.push_back(make_pair(i,j));
+          tmp[i][j]=down;
+          return down;
+        }
+      }
+      if(matrix[i][j]>=matrix[i][j+1]){
+        right = DFS(matrix,tmp,i,j+1);
+        if(right==3) {
+          res.push_back(make_pair(i,j));
+          tmp[i][j]=right;
+          return right;
+        }
+      }
+      if(s.length()*up.length()*down.length()*left.length()*right.length()==0) return 0;
+      if(s==1&&up==1&&left==1&&down==1&&right==1) return 1;
+      if(s==2&&up==2&&left==2&&down==2&&right==2) return 2;
+      res.push_back(make_pair(i,j));
+      return 3;
+    }
+};

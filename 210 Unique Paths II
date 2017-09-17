@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
+        int m = obstacleGrid.size();
+        if(m==0)  return 0;
+        int n = obstacleGrid[0].size();
+        vector<vector<int>> v(m,vector<int>(n,-1));
+        return DP(m,n,v,obstacleGrid);
+    }
+    int DP(int i, int j, vector<vector<int>>& v, vector<vector<int>>& obs){
+      if(obs[i-1][j-1])  {v[i-1][j-1]=0;  return 0;}
+      if(i==1 && j==1)  {return 1;}
+      if(v[i-1][j-1]==-1){
+          v[i-1][j-1] = 0;
+          v[i-1][j-1] += (i>1)?DP(i-1,j,v,obs):0;
+          v[i-1][j-1] += (j>1)?DP(i,j-1,v,obs):0;
+      }
+      return v[i-1][j-1];
+    }
+};

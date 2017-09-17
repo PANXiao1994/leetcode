@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int minPathSum(vector<vector<int>>& grid) {
+        int m = grid.size();
+        if(!m)  return 0;
+        int n = grid[0].size();
+        vector<vector<int>> record(m,vector<int>(n,INT_MIN));
+        return minPath(m,n,grid,record);
+    }
+    int minPath(int i, int j, vector<vector<int>>& grid, vector<vector<int>>& record){
+      if(i==1 && j==1)  return grid[0][0];
+      if(record[i-1][j-1]!=INT_MIN)  return record[i-1][j-1];
+      int min1 = (i>1)? minPath(i-1,j,grid,record):INT_MAX;
+      int min2 = (j>1)? minPath(i,j-1,grid,record):INT_MAX;
+      record[i-1][j-1] = grid[i-1][j-1]+min(min1,min2);
+      return record[i-1][j-1];
+    }
+};

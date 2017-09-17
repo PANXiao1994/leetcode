@@ -1,25 +1,53 @@
 class Solution {
 public:
     int nthUglyNumber(int n) {
-      queue<int> q;
-      vector<int> visited;
-      vector<int>::iterator it2,it3,it5;
-      q.push(1); //1 is the first ugly number
-      while(n--){
-        int tmp = q.front();
-        q.pop();
-        visited.push_back(tmp);
-        it2 = find(visited.begin(),visited.end(),tmp*2);
-        it3 = find(visited.begin(),visited.end(),tmp*3);
-        it5 = find(visited.begin(),visited.end(),tmp*5);
-
-        if(it2!=visited.end())
-          q.push(tmp*2);
-        if(it3!=visited.end())
-          q.push(tmp*3);
-        if(it5!=visited.end())
-          q.push(tmp*5);
+      vector<int> res;
+      res.push_back(1);
+      n--;
+      int num;
+      int index2 = 0, index3 = 0, index5 = 0;
+      while(n){
+        int num2 = res[index2]*2;
+        int num3 = res[index3]*3;
+        int num5 = res[index5]*5;
+        if(num2==num3 && num2==num5) {index2++;index3++;}
+        else if(num2==num3) index2++;
+        else if(num2==num5) index2++;
+        else if(num3==num5)  index3++;
+        if(res[index2]*2<res[index3]*3 && res[index2]*2<res[index5]*5){
+            res.push_back(res[index2]*2);    index2++; n--;
+        }
+        else if(res[index3]*3<res[index2]*2 && res[index3]*3<res[index5]*5){
+            res.push_back(res[index3]*3);    index3++; n--;
+        }
+        else if(res[index5]*5<res[index2]*2 && res[index5]*5<res[index3]*3){
+            res.push_back(res[index5]*5);    index5++; n--;
+        }
       }
-      return q.front();
+      return res.back();
     }
+};
+
+//smart solution!!
+class Solution {
+public:
+    int nthUglyNumber(int n) {
+        int ugly [n];
+        ugly[0] = 1;
+        int index2 = 0, index3 = 0, index5 = 0;
+        int factor2 = 2, factor3 = 3, factor5 = 5;
+        int result=1;
+        for(int i=1;i<n;i++){
+            int v = min(min(factor2,factor3),factor5);
+            ugly[i] = v;
+            if(factor2 == v)
+                factor2 = 2*ugly[++index2];
+            if(factor3 == v)
+                factor3 = 3*ugly[++index3];
+            if(factor5 == v)
+                factor5 = 5*ugly[++index5];
+        }
+        return ugly[n-1];
+    }
+
 };

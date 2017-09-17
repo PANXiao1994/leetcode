@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int maximalRectangle(vector<vector<char>>& matrix) {
+      int m = matrix.size();
+      if(!m)  return 0;
+      int n = matrix[0].size();
+      int res = 0;
+      vector<vector<int>> rect1(m,vector<int>(n,0));
+      vector<vector<int>> rect2(m,vector<int>(n,0));
+      for(int j=0;j<n;j++){
+          rect1[0][j] = matrix[0][j]-'0';
+          rect2[0][j] = matrix[0][j]-'0';
+          if(rect1[0][j])    res = 1;
+      }
+      for(int i=1;i<m;i++){
+          rect1[i][0] = matrix[i][0]-'0';
+          rect2[i][0] = matrix[i][0]-'0';
+          if(rect1[i][0])    res = 1;
+      }
+
+      for(int i=1;i<m;i++)
+        for(int j=1;j<n;j++)
+          if(matrix[i][j]=='1'){
+              rect1[i][j] = min(rect1[i-1][j-1],rect1[i-1][j])+1;
+              rect2[i][j] = min(rect2[i-1][j-1],rect2[i][j-1])+1;
+              res = max(res,rect1[i][j]*rect2[i][j]);
+          }
+
+      return res;
+    }
+};

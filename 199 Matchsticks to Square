@@ -6,6 +6,8 @@ public:
         for(int n:nums) sum += n;
         if(sum%4 || nums.size()<4) return false;
         int idx = 0;
+        sort(nums.begin(), nums.end(), [](const int &l, const int &r){return l > r;});
+        //if I put short ones before longer ones, it will take longer time to return a false
         vector<int> s(4,0);
         return DFS(nums,sum/4,s,0);
     }
@@ -13,6 +15,11 @@ public:
       if(index==nums.size()) return s[0]==ed && s[1]==ed && s[2]==ed;
       for(int i=0;i<4;i++){
         if(s[i]+nums[index] > ed)    continue;
+        int j = i;
+        while (--j >= 0) // third
+            if (sidesLength[i] == sidesLength[j])
+                break;
+        if (j != -1) continue;
         s[i] += nums[index];
         if(DFS(nums,ed,s,index+1))  return true;
         s[i] -= nums[index];

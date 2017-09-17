@@ -1,0 +1,20 @@
+class Solution {
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        if(wordDict.empty())  return false;
+        vector<bool> record(s.length()+1,false);
+        record[0] = true;
+        for(int i=1;i<=s.length();i++){
+          for(int j = i-1 ;j>=0;j--){
+            if(record[j]){
+              string sub = s.substr(j,i-j);
+              if(find(wordDict.begin(),wordDict.end(),sub)!=wordDict.end()){
+                dp[i] = true;
+                break;
+              }
+            }
+          }
+        }
+        return record[s.length()];
+    }
+};

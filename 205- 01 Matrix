@@ -1,0 +1,41 @@
+class Solution {
+public:
+    vector<vector<int>> updateMatrix(vector<vector<int>>& matrix) {
+        vector<vector<int>> res0;
+        if(matrix.empty())  return res0;
+        int m = matrix.size();
+        int n = matrix[0].size();
+        vector<vector<int>> res(m,vector<int>(n,INT_MAX));
+        DFS(res,matrix,0,0,true,true);
+        DFS(res,matrix,0,n-1,true,false);
+        DFS(res,matrix,m-1,n-1,false,true);
+        DFS(res,matrix,m-1,0,false,true);
+        return res;
+    }
+    int DFS(vector<vector<int>>& res, vector<vector<int>> M, int i, int j, bool a, bool b){
+      if(i<0 || j<0 || i>=M.size() || j>=M[0].size()) return INT_MAX;
+      if(M[i][j]==0)  res[i][j] = 0;
+      if(a&&b){
+          int down = DFS(res,M,i+1,j,true,true);
+          int right = DFS(res,M,i,j+1,true,true);
+          res[i][j] = min(res[i][j],1 + min(down,right));
+      }
+      else if(!a&&b){
+          int up = DFS(res,M,i-1,j,false,true);
+          int left = DFS(res,M,i,j-1,false,true);
+          res[i][j] = min(res[i][j],1 + min(up,left));
+      }
+      else if(!b&&a){
+          int down = DFS(res,M,i+1,j,true,false);
+          int left = DFS(res,M,i,j-1,true,false);
+          res[i][j] = min(res[i][j],1 + min(down,left));
+      }
+      else{
+          int up = DFS(res,M,i-1,j,false,false);
+          int right = DFS(res,M,i,j+1,false,false);
+          res[i][j] = min(res[i][j],1 + min(up,right));
+      }
+
+      return res[i][j];
+    }
+};
