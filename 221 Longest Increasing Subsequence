@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        vector<int> dp;
+        int maxsub = 0;
+        while(dp.size()<nums.size()){
+          int k = dp.size();
+          dp.push_back(1);
+          if(k==0)  { maxsub = 1; continue;}
+          for(int i = 0;i<k;i++){
+            if(nums[k]>nums[i])
+              dp[k] = max(dp[i]+1,dp[k]);
+          }
+          maxsub = max(dp[k],maxsub);
+        }
+        return maxsub;
+    }
+};
+//beat 7%
