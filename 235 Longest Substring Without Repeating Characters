@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int n = s.length();
+        if(n<2) return n;
+        vector<int> hash(128,0);
+        int i=0, j=0;
+        int maxcount = 0;
+        string result = "";
+        int count = 0;
+        while(i<n&&j<n){
+          if(hash[s[j]]){
+            while(hash[s[j]]){
+              count--;
+              hash[s[i]]--;
+              i++;
+            }
+          }
+          else{  count++; hash[s[j]]++;  j++;}
+          maxcount = max(maxcount,count);
+        }
+        return maxcount;
+    }
+};
