@@ -7,15 +7,20 @@ public:
       int res = 0;
       vector<vector<int>> rect1(m,vector<int>(n,0));
       vector<vector<int>> rect2(m,vector<int>(n,0));
-      for(int j=0;j<n;j++){
-          rect1[0][j] = matrix[0][j]-'0';
-          rect2[0][j] = matrix[0][j]-'0';
-          if(rect1[0][j])    res = 1;
+      rect1[0][0] = matrix[0][0]-'0';
+      rect2[0][0] = matrix[0][0]-'0';
+      if(rect1[0][0])    res = 1;
+      for(int j=1;j<n;j++){
+        if(matrix[0][j]=='1')
+          rect1[0][j] = rect1[0][j-1]+1;
+        rect2[0][j] = matrix[0][j]-'0';
+        res = max(rect1[0][j],res);
       }
       for(int i=1;i<m;i++){
-          rect1[i][0] = matrix[i][0]-'0';
-          rect2[i][0] = matrix[i][0]-'0';
-          if(rect1[i][0])    res = 1;
+        if(matrix[i][0]=='1')
+          rect2[i][0] = rect2[i-1][0]+1;
+        rect1[i][0] = matrix[i][0]-'0';
+        res = max(rect2[i][0],res);
       }
 
       for(int i=1;i<m;i++)
